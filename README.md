@@ -1,0 +1,12 @@
+# haikus
+Haiku maker written in Haskell. Probably won't make sense. I made this program while learning Haskell, so the approaches might not be the best.
+
+**Instructions**
+
+1 - Run `makeHaiku.hs` i.e `runHaskell makeHaiku`
+2 - Enjoy your new haiku
+
+**Notes**
+
+- If the file `words/out.txt` is corrupt you might need to run `words/syllabes.hs`
+- It might take up to 10 seconds to generate a haiku since it has to process more than 187000 words

@@ -26,7 +26,7 @@ main = do
     let listToTuple [x, y] = (x, read y :: Integer)
         wordList = [ (fst s, snd s) | x <- (lines list), let s = (listToTuple . splitOn " ") x]
         format (x:xs) = toUpper x : map toLower xs
-    output <- mapM (\x -> line x wordList) [5, 7, 5]
+    output <- mapM (`line`wordList) [5, 7, 5]
     let [a, b, c] = map format output
     -- Output haiku lines
     putStrLn a

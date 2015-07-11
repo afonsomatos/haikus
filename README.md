@@ -6,6 +6,18 @@ Haiku maker written in Haskell. Probably won't make sense. I made this program w
 1 - Run `makeHaiku.hs` i.e `runHaskell makeHaiku`
 2 - Enjoy your new haiku
 
+**Haikus examples**
+
+```
+Extraphysical 
+Heterogeneously 
+Porthole expound phlox
+
+Bisexual plug 
+Parroquet honeybloom grope 
+Unrhyming sipe culm 
+```
+
 **Notes**
 
 - If the file `words/out.txt` is corrupt you might need to run `words/syllabes.hs`

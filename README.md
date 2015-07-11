@@ -3,7 +3,7 @@ Haiku maker written in Haskell. Probably won't make sense. I made this program w
 
 **Instructions**
 
-1 - Run `makeHaiku.hs` i.e `runHaskell makeHaiku`
+1 - Run `makeHaiku.hs` i.e `runhaskell makeHaiku`
 2 - Enjoy your new haiku
 
 **Haikus examples**

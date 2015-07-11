@@ -15,7 +15,7 @@ line s xs = do
             (randomNum, _) = randomR (0, length p - 1) gen :: (Int, StdGen)
             w = p !! randomNum
         -- Make the line recursively
-        rest <- line (s - snd w) p
+        rest <- line (s - snd w) xs
         newStdGen
         return $ (fst w) ++ " " ++ rest
 

@@ -6,29 +6,39 @@ import System.IO
 import Data.Char
 import Data.List.Split
 
-line :: Integer -> [(String, Integer)] -> IO String
-line s xs = do
-    if s == 0 then return ""
-    else do
-        gen <- getStdGen
-        let p = filter ((<=s) . snd) xs
-            (randomNum, _) = randomR (0, length p - 1) gen :: (Int, StdGen)
-            w = p !! randomNum
-        -- Make the line recursively
-        rest <- line (s - snd w) p
-        newStdGen
-        return $ (fst w) ++ " " ++ rest
+line :: [(String, Integer)] -> Integer -> IO String
+line wordList syllablesLeft
+    | syllablesLeft <= 0 = return ""
+    | otherwise = do
+            -- Get a new StdGen for generating a random number
+            gen <- newStdGen
+
+            -- Get all words that have <= syllables than what it's needed
+            let candidates = filter ((<= syllablesLeft) . snd) wordList
+
+                -- Generate a random index from the list
+                (randomIndex, _) = randomR (0, length candidates - 1) gen :: (Int, StdGen)
+
+                -- Select the word with the random index ^
+                word = candidates !! randomIndex
+
+            -- Get other words to fill the remaining syllables
+            rest <- line candidates (syllablesLeft - snd word)
+
+            return $ unwords [fst word, rest]
 
 main = do
     -- Open words list
-    handle <- openFile "words/out.txt" ReadMode
-    list <- hGetContents handle
+    list <- readFile "words/out.txt"
+
     let listToTuple [x, y] = (x, read y :: Integer)
-        wordList = [ (fst s, snd s) | x <- (lines list), let s = (listToTuple . splitOn " ") x]
-        format (x:xs) = toUpper x : map toLower xs
-    output <- mapM (`line`wordList) [5, 7, 5]
-    let [a, b, c] = map format output
-    -- Output haiku lines
-    putStrLn a
-    putStrLn b
-    putStrLn c
+        wordList           = map (listToTuple . splitOn " ") (lines list)
+        capitalize (x:xs)  = toUpper x : map toLower xs
+
+    -- Fetch lines
+    output <- mapM (line wordList) [5, 7, 5]
+
+    -- Print them capitalized
+    mapM_ (putStrLn . capitalize) output
+
+    return ()

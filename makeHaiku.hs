@@ -35,10 +35,5 @@ main = do
         wordList           = map (listToTuple . splitOn " ") (lines list)
         capitalize (x:xs)  = toUpper x : map toLower xs
 
-    -- Fetch lines
-    output <- mapM (line wordList) [5, 7, 5]
-
     -- Print them capitalized
-    mapM_ (putStrLn . capitalize) output
-
-    return ()
+    mapM_ ((>>= putStrLn . capitalize) . line wordList) [5, 7, 5]
